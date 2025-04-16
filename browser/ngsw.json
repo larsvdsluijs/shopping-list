@@ -1,0 +1,76 @@
+{
+  "configVersion": 1,
+  "timestamp": 1744807791194,
+  "index": "/shopping-list/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/shopping-list/favicon.ico",
+        "/shopping-list/index.html",
+        "/shopping-list/main-DMHFND2B.js",
+        "/shopping-list/manifest.webmanifest",
+        "/shopping-list/polyfills-FFHMD2TL.js",
+        "/shopping-list/styles-5INURTSO.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "firebase",
+      "patterns": [
+        "https:\\/\\/firestore\\.googleapis\\.com\\/.*"
+      ],
+      "strategy": "freshness",
+      "maxSize": 100,
+      "maxAge": 86400000,
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "version": 1
+    }
+  ],
+  "hashTable": {
+    "/shopping-list/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
+    "/shopping-list/index.html": "38f694713220849b307ffa0ae9c1ec848e5fb229",
+    "/shopping-list/main-DMHFND2B.js": "aa7736242e5842fc1623ac3c3a6c57d26aebf701",
+    "/shopping-list/manifest.webmanifest": "80e7ccfee530bcaedb46615150ce838d1dd097fa",
+    "/shopping-list/polyfills-FFHMD2TL.js": "f49b49a155bc7d192db62a4c15d0a612b460a667",
+    "/shopping-list/styles-5INURTSO.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
