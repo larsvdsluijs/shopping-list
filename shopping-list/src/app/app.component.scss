@@ -34,6 +34,8 @@
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    flex-direction: column;
+    gap: 10px;
   }
   
   #nieuw-item {
@@ -41,9 +43,10 @@
     padding: 15px;
     font-size: 1.1rem;
     border: 2px solid #ddd;
-    border-radius: 8px 0 0 8px;
+    border-radius: 8px;
     outline: none;
     transition: border-color 0.3s;
+    width: 100%;
   }
   
   #nieuw-item:focus {
@@ -54,11 +57,12 @@
     background-color: #7c4dff;
     color: white;
     border: none;
-    padding: 0 25px;
+    padding: 15px 25px;
     font-size: 1.1rem;
-    border-radius: 0 8px 8px 0;
+    border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s;
+    width: 100%;
   }
   
   #toevoegen-btn:hover {
@@ -131,7 +135,9 @@
     flex: 1;
     position: relative;
     transition: color 0.3s;
-    display: inline-block; /* Belangrijk voor de juiste breedte van de streep */
+    display: inline-block;
+    word-break: break-word;
+    padding-right: 10px;
   }
   
   /* Afgestreept item styling */
@@ -163,13 +169,19 @@
     background: none;
     border: none;
     color: #ff5252;
-    font-size: 1.8rem;
+    font-size: 2rem;
     cursor: pointer;
     opacity: 0.7;
     transition: opacity 0.3s, transform 0.3s;
-    padding: 5px 10px;
+    padding: 8px 12px;
     margin-left: 10px;
     z-index: 10;
+    flex-shrink: 0;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .verwijder-btn:hover {
@@ -203,12 +215,100 @@
     }
   }
   
+  .loader-container {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    gap: 20px;
+  }
+  
+  .loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #7c4dff;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+  
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .loader-container p {
+    color: #666;
+    font-size: 1.1rem;
+  }
+  
   @media (max-width: 600px) {
-    .boodschappen-container {
-      grid-template-columns: 1fr;
+    :host {
+      padding: 10px;
+    }
+
+    header {
+      margin-bottom: 20px;
+      padding: 15px 0;
     }
     
     h1 {
-      font-size: 2rem;
+      font-size: 1.8rem;
+    }
+
+    .input-container {
+      margin-bottom: 20px;
+    }
+
+    #nieuw-item, #toevoegen-btn {
+      padding: 12px;
+      font-size: 1rem;
+    }
+    
+    .boodschappen-container {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+
+    .boodschap-item {
+      padding: 15px;
+    }
+
+    .boodschap-tekst {
+      font-size: 1rem;
+    }
+
+    .checkbox-custom {
+      width: 20px;
+      height: 20px;
+    }
+
+    .verwijder-btn {
+      font-size: 1.8rem;
+      padding: 6px 10px;
+      min-width: 40px;
+      min-height: 40px;
+    }
+
+    .loader-container {
+      padding: 30px;
+    }
+
+    .loader {
+      width: 40px;
+      height: 40px;
+      border-width: 4px;
+    }
+
+    .loader-container p {
+      font-size: 1rem;
     }
   }

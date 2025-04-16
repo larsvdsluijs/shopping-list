@@ -50,7 +50,9 @@
                   "maximumError": "4kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "baseHref": "/shopping-list/",
+              "serviceWorker": "ngsw-config.json"
             },
             "development": {
               "optimization": false,

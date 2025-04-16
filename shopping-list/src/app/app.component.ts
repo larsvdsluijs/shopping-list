@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Firestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from '@angular/fire/firestore';
 
 interface BoodschapItem {
-  id: number;
+  id: string;
   naam: string;
   afgestreept: boolean;
   wordtVerwijderd: boolean;
@@ -20,41 +21,85 @@ interface BoodschapItem {
 export class AppComponent implements OnInit {
   items: BoodschapItem[] = [];
   nieuwItem: string = '';
+  isLoading: boolean = true;
 
-  ngOnInit(): void {
-    // Voorbeelditems toevoegen
-    this.voegItemToe('Melk');
-    this.voegItemToe('Brood');
-    this.voegItemToe('Kaas');
+  constructor(private firestore: Firestore) {}
+
+  async ngOnInit(): Promise<void> {
+    await this.haalItemsOp();
+    this.haalAfgestreepteStatusOp();
+    this.isLoading = false;
   }
 
-  voegItemToe(naam: string): void {
+  private haalAfgestreepteStatusOp(): void {
+    const opgeslagenStatus = localStorage.getItem('afgestreepteItems');
+    if (opgeslagenStatus) {
+      const afgestreepteItems = JSON.parse(opgeslagenStatus);
+      this.items.forEach(item => {
+        if (afgestreepteItems[item.id]) {
+          item.afgestreept = true;
+        }
+      });
+    }
+  }
+
+  private slaAfgestreepteStatusOp(): void {
+    const afgestreepteItems: { [key: string]: boolean } = {};
+    this.items.forEach(item => {
+      afgestreepteItems[item.id] = item.afgestreept;
+    });
+    localStorage.setItem('afgestreepteItems', JSON.stringify(afgestreepteItems));
+  }
+
+  async haalItemsOp(): Promise<void> {
+    const itemsCollection = collection(this.firestore, 'shopping-list');
+    const querySnapshot = await getDocs(itemsCollection);
+    
+    this.items = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      naam: doc.data()['itemName'],
+      afgestreept: false,
+      wordtVerwijderd: false
+    }));
+  }
+
+  async voegItemToe(naam: string): Promise<void> {
     if (naam.trim() === '') return;
 
-    const nieuwId = this.items.length > 0 
-      ? Math.max(...this.items.map(item => item.id)) + 1 
-      : 1;
-      
+    const itemsCollection = collection(this.firestore, 'shopping-list');
+    const docRef = await addDoc(itemsCollection, {
+      itemName: naam
+    });
+
     this.items.push({
-      id: nieuwId,
+      id: docRef.id,
       naam: naam,
       afgestreept: false,
       wordtVerwijderd: false
     });
 
     this.nieuwItem = '';
+    this.slaAfgestreepteStatusOp();
   }
 
   verwerkNieuwItem(): void {
     this.voegItemToe(this.nieuwItem);
   }
 
-  toggleAfgestreept(item: BoodschapItem): void {
+  async toggleAfgestreept(item: BoodschapItem): Promise<void> {
     item.afgestreept = !item.afgestreept;
+    const itemDoc = doc(this.firestore, 'shopping-list', item.id);
+    await updateDoc(itemDoc, {
+      afgestreept: item.afgestreept
+    });
+    this.slaAfgestreepteStatusOp();
   }
 
-  verwijderItem(id: number): void {
+  async verwijderItem(id: string): Promise<void> {
+    const itemDoc = doc(this.firestore, 'shopping-list', id);
+    await deleteDoc(itemDoc);
     this.items = this.items.filter(item => item.id !== id);
+    this.slaAfgestreepteStatusOp();
   }
 
   onKeyPress(event: KeyboardEvent): void {

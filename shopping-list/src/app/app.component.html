@@ -13,7 +13,12 @@
 </div>
 
 <div class="boodschappen-container">
-  <div class="leeg-bericht" *ngIf="items.length === 0">
+  <div class="loader-container" *ngIf="isLoading">
+    <div class="loader"></div>
+    <p>Items laden...</p>
+  </div>
+
+  <div class="leeg-bericht" *ngIf="!isLoading && items.length === 0">
     Je boodschappenlijst is leeg. Voeg items toe!
   </div>
 
