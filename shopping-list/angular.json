@@ -29,7 +29,14 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              {
+                "glob": "**/*",
+                "input": "src",
+                "output": "/",
+                "ignore": ["**/*.ts", "**/*.scss", "**/*.html"]
+              },
+              "src/404.html"
             ],
             "styles": [
               "src/styles.scss"
