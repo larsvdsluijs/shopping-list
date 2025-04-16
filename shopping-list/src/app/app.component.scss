@@ -1,0 +1,214 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  :host {
+    display: block;
+    background-color: #f5f5f5;
+    color: #333;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px 0;
+    background: linear-gradient(135deg, #ff7eb3, #7c4dff);
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .input-container {
+    display: flex;
+    margin-bottom: 30px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  #nieuw-item {
+    flex: 1;
+    padding: 15px;
+    font-size: 1.1rem;
+    border: 2px solid #ddd;
+    border-radius: 8px 0 0 8px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  
+  #nieuw-item:focus {
+    border-color: #7c4dff;
+  }
+  
+  #toevoegen-btn {
+    background-color: #7c4dff;
+    color: white;
+    border: none;
+    padding: 0 25px;
+    font-size: 1.1rem;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  #toevoegen-btn:hover {
+    background-color: #6a3de8;
+  }
+  
+  .boodschappen-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .boodschap-item {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+  
+  .boodschap-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .checkbox-container {
+    margin-right: 15px;
+  }
+  
+  .checkbox {
+    display: none;
+  }
+  
+  .checkbox-custom {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #7c4dff;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .checkbox:checked + .checkbox-custom {
+    background-color: #7c4dff;
+  }
+  
+  .checkbox:checked + .checkbox-custom::after {
+    content: '';
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 6px;
+    height: 12px;
+    border-right: 3px solid white;
+    border-bottom: 3px solid white;
+  }
+  
+  .boodschap-tekst {
+    font-size: 1.1rem;
+    flex: 1;
+    position: relative;
+    transition: color 0.3s;
+    display: inline-block; /* Belangrijk voor de juiste breedte van de streep */
+  }
+  
+  /* Afgestreept item styling */
+  .afgestreept .boodschap-tekst {
+    color: #aaa;
+  }
+  
+  .afgestreept .boodschap-tekst::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: #ff7eb3;
+    animation: strikethrough 0.5s forwards;
+  }
+  
+  @keyframes strikethrough {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+  
+  .verwijder-btn {
+    background: none;
+    border: none;
+    color: #ff5252;
+    font-size: 1.8rem;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s, transform 0.3s;
+    padding: 5px 10px;
+    margin-left: 10px;
+    z-index: 10;
+  }
+  
+  .verwijder-btn:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  
+  .leeg-bericht {
+    text-align: center;
+    grid-column: 1 / -1;
+    padding: 30px;
+    color: #888;
+    font-size: 1.2rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .verwijderen-animatie {
+    animation: verwijderen 0.5s forwards;
+  }
+  
+  @keyframes verwijderen {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .boodschappen-container {
+      grid-template-columns: 1fr;
+    }
+    
+    h1 {
+      font-size: 2rem;
+    }
+  }

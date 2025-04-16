@@ -1,0 +1,45 @@
+<header>
+  <h1>Boodschappenlijst</h1>
+</header>
+
+<div class="input-container">
+  <input 
+    type="text" 
+    id="nieuw-item" 
+    placeholder="Voeg een item toe..." 
+    [(ngModel)]="nieuwItem"
+    (keyup)="onKeyPress($event)">
+  <button id="toevoegen-btn" (click)="verwerkNieuwItem()">Toevoegen</button>
+</div>
+
+<div class="boodschappen-container">
+  <div class="leeg-bericht" *ngIf="items.length === 0">
+    Je boodschappenlijst is leeg. Voeg items toe!
+  </div>
+
+  <div 
+    *ngFor="let item of items" 
+    class="boodschap-item"
+    [class.afgestreept]="item.afgestreept"
+    [class.verwijderen-animatie]="item.wordtVerwijderd"
+    (click)="toggleAfgestreept(item)">
+    
+    <div class="checkbox-container">
+      <input 
+        type="checkbox" 
+        [id]="'item-' + item.id" 
+        class="checkbox"
+        [checked]="item.afgestreept"
+        (change)="toggleAfgestreept(item)"
+        (click)="$event.stopPropagation()">
+      <label [for]="'item-' + item.id" class="checkbox-custom"></label>
+    </div>
+    
+    <span class="boodschap-tekst">{{ item.naam }}</span>
+    
+    <button 
+      class="verwijder-btn" 
+      aria-label="Verwijder item"
+      (click)="$event.stopPropagation(); verwijderItem(item.id)">×</button>
+  </div>
+</div>
