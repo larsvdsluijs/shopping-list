@@ -4,9 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --base-href 'https://larsvdsluijs.github.io/shopping-list/'",
+    "build": "ng build --base-href https://larsvdsluijs.github.io/shopping-list/",
     "watch": "ng build --watch --configuration development",
-    "deploy": "npx angular-cli-ghpages --dir=dist/shopping-list",
+    "deploy": "npx angular-cli-ghpages --dir=dist/shopping-list/browser",
     "test": "ng test"
   },
   "private": true,
